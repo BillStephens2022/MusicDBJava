@@ -1,5 +1,6 @@
 package com.billstephens;
 
+import com.billstephens.model.Album;
 import com.billstephens.model.Artist;
 import com.billstephens.model.Datasource;
 
@@ -21,6 +22,13 @@ public class Main {
 
         for(Artist artist : artists) {
             System.out.println("ID = " + artist.getId() + ", Name = " + artist.getName());
+        }
+
+        List<String> albumsByArtist =
+                datasource.queryAlbumsByArtist("Iron Maiden", Datasource.ORDER_BY_ASC);
+
+        for (String album : albumsByArtist) {
+            System.out.println(album);
         }
 
         datasource.close();
