@@ -205,11 +205,24 @@ public class Datasource {
             ResultSetMetaData meta = results.getMetaData();
             int numColumns = meta.getColumnCount();
             for (int i = 1; i <= numColumns; i++) {
-                System.out.format("Column %d in the songs table is named %s\n",
+                System.out.printf("Column %d in the songs table is named %s\n",
                         i, meta.getColumnName(i));
             }
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
+        }
+    }
+
+    public int getCount(String table) {
+        String sql = "SELECT COUNT(*) AS count FROM " + table;
+        try (Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery(sql)) {
+          int count = results.getInt("count");
+          System.out.printf("Count = %d\n", count);
+          return count;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return -1;
         }
     }
 }
