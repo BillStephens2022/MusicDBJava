@@ -6,6 +6,7 @@ import com.billstephens.model.Datasource;
 import com.billstephens.model.SongArtist;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -51,7 +52,11 @@ public class Main {
 
         datasource.createViewBySongArtist();
 
-        songArtists = datasource.querySongInfoView("Go Your Own Way");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a song title: ");
+        String title = scanner.nextLine();
+
+        songArtists = datasource.querySongInfoView(title);
         if (songArtists == null) {
             System.out.println("GOT NULL!!!");
             return;
