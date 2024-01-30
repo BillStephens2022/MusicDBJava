@@ -27,13 +27,13 @@ public class Main {
         }
 
         List<String> albumsByArtist =
-                datasource.queryAlbumsByArtist("Metallica", Datasource.ORDER_BY_ASC);
+                datasource.queryAlbumsForArtist("Metallica", Datasource.ORDER_BY_ASC);
 
         for (String album : albumsByArtist) {
             System.out.println(album);
         }
 
-        List<SongArtist> songArtists = datasource.queryArtistsBySong("Go Your Own Way", Datasource.ORDER_BY_ASC);
+        List<SongArtist> songArtists = datasource.queryArtistsForSong("Go Your Own Way", Datasource.ORDER_BY_ASC);
         if (songArtists == null) {
             System.out.println("Couldn't find the artist for the song");
             return;
@@ -50,27 +50,29 @@ public class Main {
         int count = datasource.getCount(Datasource.TABLE_SONGS);
         System.out.println("Number of songs is: " + count);
 
-        datasource.createViewBySongArtist();
+        datasource.createViewForSongArtists();
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a song title: ");
-        String title = scanner.nextLine();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Enter a song title: ");
+//        String title = scanner.nextLine();
+//
+//        songArtists = datasource.querySongInfoView(title);
+//        if (songArtists == null) {
+//            System.out.println("GOT NULL!!!");
+//            return;
+//        }
+//        if(songArtists.isEmpty()) {
+//            System.out.println("Couldn't find the artist for the song!");
+//            return;
+//        }
+//
+//        for (SongArtist artist : songArtists) {
+//            System.out.println("FROM VIEW - Artist name = " + artist.getArtistName() +
+//                    " Album name = " + artist.getAlbumName() +
+//                    " Track number = " + artist.getTrack());
+//        }
 
-        songArtists = datasource.querySongInfoView(title);
-        if (songArtists == null) {
-            System.out.println("GOT NULL!!!");
-            return;
-        }
-        if(songArtists.isEmpty()) {
-            System.out.println("Couldn't find the artist for the song!");
-            return;
-        }
-
-        for (SongArtist artist : songArtists) {
-            System.out.println("FROM VIEW - Artist name = " + artist.getArtistName() +
-                    " Album name = " + artist.getAlbumName() +
-                    " Track number = " + artist.getTrack());
-        }
+        datasource.insertSong("Bird Dog", "Everly Brothers", "All-Time Greatest Hits", 7);
         datasource.close();
     }
 }
